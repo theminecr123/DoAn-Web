@@ -64,6 +64,7 @@ namespace DoAn.Controllers
                     kh.password = userPass;
                     kh.email = email;
                     kh.phone_number = phone_number;
+                    kh.role_id = 2;
 
                     data.KhachHangs.InsertOnSubmit(kh);
                     data.SubmitChanges();
