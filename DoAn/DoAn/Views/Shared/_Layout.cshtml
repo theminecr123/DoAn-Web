@@ -83,48 +83,82 @@
                 <div class="col-md-4 re_no">
                     <ul class="infomaco">
                         <li>
-                            @using (Html.BeginForm("FlatLogin", "KhachHang"))
+                        @if (Session["IDuser"] != null)
+                        {
+                            if (int.Parse(Session["IDuser"].ToString()) == 1)
                             {
-                                @Html.AntiForgeryToken()
-                            <div class="container-log">
-                                <div>
-                                    <button class="log">
-                                        <i class="fa fa-user" aria-hidden="true" style="color:burlywood"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <style>
-                                                               
-                                .container-log button {
-                                    cursor: pointer;
-                                    border: 0;
-                                    border-radius: 4px;
-                                    font-weight: 600;
-                                    margin: 0 10px;
-                                    width:50px;
-                                    padding: 10px 0;
-                                    box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
-                                    transition: 0.4s;
+                                using (Html.BeginForm(""))
+                                {
+                                    <div class="container-log">
+                                        <div>
+                                            <button class="log">
+                                                <i class="fa fa-user" aria-hidden="true" style="color:burlywood"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 }
 
 
-                                .container-log .log {
-                                    position:center;
-                                    color: rgb(104, 85, 224);
-                                    background-color: rgba(255, 255, 255, 1);
-                                    border: 1px solid rgba(104, 85, 224, 1);
-                                }
-
-                                .container-log button:hover {
-                                    color: white;
-                                    width:;
-                                    box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
-                                    background-color: rgba(104, 85, 224, 1);
-                                }
-                            </style>
                             }
-                        </li>
-                        
+                            else
+                            {
+                                <div class="container-log">
+                                    <div>
+                                        <button class="log">
+                                            <i class="fa fa-user" aria-hidden="true" style="color:burlywood"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            <li>
+                                @using (Html.BeginForm("FlatLogin", "KhachHang"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="container-log">
+                                        <div>
+                                            <button class="log">
+                                                <i class="fa fa-user" aria-hidden="true" style="color:burlywood"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <style>
+
+                                        .container-log button {
+                                            cursor: pointer;
+                                            border: 0;
+                                            border-radius: 4px;
+                                            font-weight: 600;
+                                            margin: 0 10px;
+                                            width: 50px;
+                                            padding: 10px 0;
+                                            box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+                                            transition: 0.4s;
+                                        }
+
+
+                                        .container-log .log {
+                                            position: center;
+                                            color: rgb(104, 85, 224);
+                                            background-color: rgba(255, 255, 255, 1);
+                                            border: 1px solid rgba(104, 85, 224, 1);
+                                        }
+
+                                        .container-log button:hover {
+                                            color: white;
+                                            width:;
+                                            box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+                                            background-color: rgba(104, 85, 224, 1);
+                                        }
+                                    </style>
+                                }
+                            </li>
+                        }
+
+
                         <li><i class="fa fa-phone" aria-hidden="true"></i> +01 1234567890</li>
                         <li><a href="Javascript:void(0)"><i class="fa fa-envelope-o" aria-hidden="true"></i> demo@gmail.com</a></li>
                     </ul>
