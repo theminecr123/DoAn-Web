@@ -344,7 +344,7 @@ button {
     height: 50px !important;
     display: block;
     text-align: left;
-    padding-top: 36px;
+    padding-top: 10px;
 }
 
 ul.infomaco {
@@ -414,8 +414,8 @@ ul.infomaco {
 /** banner section **/
 
 .full_bg {
-    background-image: linear-gradient(to right, #2F5233 67%, #B1D8B7 33%);
-    margin-bottom:30px;
+    background-image: linear-gradient(to right, #2F5233 67%, #2F5233 33%);
+    margin-bottom: 30px;
     border-top: inherit;
     border-right: inherit;
     padding-bottom: 140px;
@@ -556,7 +556,7 @@ ul.infomaco {
 }
 
 .about .titlepage h2 {
-     padding-bottom: 30px;
+     padding-bottom: 25px;
 }
 
 .about .titlepage p {
@@ -643,7 +643,7 @@ ul.infomaco {
 }
 
 .owl-item.active.center .ser_img {
-     background: #db3620;
+     background: #ebdc67;
 }
 
 .owl-item.active {
@@ -898,7 +898,7 @@ ul.infomaco {
 .footer:before {
      position: absolute;
      content: "";
-     background: url(../images/footer_be.png);
+     
      width: 344px;
      height: 157px;
      background-repeat: no-repeat;
@@ -911,7 +911,7 @@ ul.infomaco {
 .footer:after {
      position: absolute;
      content: "";
-     background: url(../images/footer_af.png);
+     
      width: 177px;
      height: 154px;
      background-repeat: no-repeat;
@@ -970,7 +970,7 @@ ul.infomaco {
      padding-top: 30px;
      text-align: left;
      font-weight: bold;
-     font-size: 30px;
+     font-size: 25px;
      line-height: 24px;
      color: #fff;
      padding-bottom: 20px;
