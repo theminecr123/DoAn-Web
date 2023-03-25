@@ -69,7 +69,7 @@ namespace DoAn.Controllers
                     data.KhachHangs.InsertOnSubmit(kh);
                     data.SubmitChanges();
 
-                    return RedirectToAction("FlatLogin","KhachHang");
+                    return RedirectToAction("FlatLogin", "KhachHang");
                 }
 
             }
@@ -93,18 +93,18 @@ namespace DoAn.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public  ActionResult FlatLogin(FormCollection collection)
+        public ActionResult FlatLogin(FormCollection collection)
         {
             var email = collection["email"];
             var password = collection["password"];
-            var kh =  data.KhachHangs.SingleOrDefault(n => n.email == email && n.password == password);
+            var kh = data.KhachHangs.SingleOrDefault(n => n.email == email && n.password == password);
             if (kh != null)
             {
                 ViewBag.ThongBao = "Đã đăng nhập!";
                 Session["TaiKhoan"] = kh;
                 Session["IDuser"] = kh.role_id;
                 Session["Name"] = kh.fullname;
-                return RedirectToAction("Index","SanPham");
+                return RedirectToAction("Index", "SanPham");
             }
             else
             {

@@ -175,6 +175,17 @@
     <Content Include="Content\images\Gao\gao7.jpg" />
     <Content Include="Content\images\Gao\gao8.jpg" />
     <Content Include="Content\images\Gao\gao9.jpg" />
+    <Content Include="Content\images\Trang_Tri1\1.png" />
+    <Content Include="Content\images\Trang_Tri1\2.jpg" />
+    <Content Include="Content\images\Trang_Tri1\3.jpg" />
+    <Content Include="Content\images\Trang_Tri1\G1.png" />
+    <Content Include="Content\images\Trang_Tri1\G2.png" />
+    <Content Include="Content\images\Trang_Tri1\G3.png" />
+    <Content Include="Content\images\Trang_Tri1\K1.jpg" />
+    <Content Include="Content\images\Trang_Tri1\K2.jpg" />
+    <Content Include="Content\images\Trang_Tri1\k3.jpg" />
+    <Content Include="Content\images\Trang_Tri1\Logo1.png" />
+    <Content Include="Content\images\Trang_Tri1\Logo2.png" />
     <Content Include="css\animate.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
