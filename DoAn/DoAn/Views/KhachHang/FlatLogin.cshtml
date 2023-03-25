@@ -58,7 +58,7 @@
 
         <div class="login">
 
-            @using (Html.BeginForm("FlatLogin", "KhachHang", FormMethod.Post, new { @id = "login" }))
+            @using (Html.BeginForm("FlatLogin", "KhachHang", FormMethod.Post, new {@id ="login"}))
             {
                 @Html.AntiForgeryToken()
 
@@ -67,7 +67,7 @@
                     @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "email", required = "" } })
                     @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
 
-                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "password", required = "" } })
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password" , placeholder = "password", required = "" } })
                     @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                     <button>Login</button>
                 </form>
@@ -123,21 +123,6 @@
         cursor: pointer;
         transition: .5s ease-in-out;
     }
-    .btn-back:hover {
-        background-color: #ddd;
-        color: black;
-    }
-
-    .btn-back {
-        float: left;
-        width: 30px;
-        text-decoration: none;
-        display: inline-block;
-        background-color: #1c173c;
-        color: white;
-        border-radius: 2px;
-    }
-
     .btn-back:hover {
         background-color: #ddd;
         color: black;
