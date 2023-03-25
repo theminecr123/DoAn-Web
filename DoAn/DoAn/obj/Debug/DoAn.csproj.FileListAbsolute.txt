@@ -168,6 +168,7 @@ C:\Users\DongTrieu\Desktop\DoAnWeb-main\DoAn\DoAn\obj\Debug\DoAn.csproj.CoreComp
 C:\Users\DongTrieu\Desktop\DoAnWeb-main\DoAn\DoAn\obj\Debug\DoAn.csproj.CopyComplete
 C:\Users\DongTrieu\Desktop\DoAnWeb-main\DoAn\DoAn\obj\Debug\DoAn.dll
 C:\Users\DongTrieu\Desktop\DoAnWeb-main\DoAn\DoAn\obj\Debug\DoAn.pdb
+<<<<<<< HEAD
 D:\Trung\Software\DoAn-Web\DoAn\DoAn\bin\DoAn.dll.config
 D:\Trung\Software\DoAn-Web\DoAn\DoAn\bin\DoAn.dll
 D:\Trung\Software\DoAn-Web\DoAn\DoAn\bin\DoAn.pdb
@@ -253,6 +254,8 @@ D:\Trung\Software\DoAn-Web\DoAn\DoAn\bin\roslyn\vbc.exe.config
 D:\Trung\Software\DoAn-Web\DoAn\DoAn\bin\roslyn\vbc.rsp
 D:\Trung\Software\DoAn-Web\DoAn\DoAn\bin\roslyn\VBCSCompiler.exe
 D:\Trung\Software\DoAn-Web\DoAn\DoAn\bin\roslyn\VBCSCompiler.exe.config
+=======
+>>>>>>> f80cebd7930734f603ab068e19d9a1d24379c54d
 C:\Users\DongTrieu\Desktop\DoAn-Web\DoAn\DoAn\bin\DoAn.dll.config
 C:\Users\DongTrieu\Desktop\DoAn-Web\DoAn\DoAn\bin\DoAn.dll
 C:\Users\DongTrieu\Desktop\DoAn-Web\DoAn\DoAn\bin\DoAn.pdb
