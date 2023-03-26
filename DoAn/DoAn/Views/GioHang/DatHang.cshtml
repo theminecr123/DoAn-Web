@@ -49,59 +49,75 @@
             KhachHang kh = (KhachHang)Session["TaiKhoan"];
         }
 
-        <table align="right" class="row-cols-2" style="display:flex">
-            @using (Html.BeginForm())
-            {
-                @Html.ValidationSummary(true)
-                <tr style="height:40px">
-                    <td>Họ tên khách hàng:</td>
-                    <td style="font-weight:bold">@kh.fullname</td>
-                </tr>
-                <tr style="height:40px">
-                    <td>Email:</td>
-                    <td style="font-weight:bold">@kh.email</td>
-                </tr>
-                <tr style="height:40px">
-                    <td>Địa chỉ:</td>
-                    <td style="font-weight:bold">@kh.address</td>
-                </tr>
-                <tr style="height:40px">
-                    <td>Điện thoại:</td>
-                    <td style="font-weight:bold">@kh.phone_number</td>
-                </tr>
-                <tr style="height:40px">
-                    <td>Ngày đặt:</td>
-                    <td style="font-weight:bold">@DateTime.Now.ToShortDateString()</td>
-                </tr>
 
+        <div class="row">
+            <div class="column" style=" float: left; width: 50%; padding: 10px;">
 
                 
-            }
-            <tr>
-                <td>
-                    <div class="totals" >
 
-                        <div class="totals-item">
-                            <label>Số loại gạo:</label>
-                            <div class="totals-value" id="cart-tax">@ViewBag.Tongsoluongsanpham</div>
-                        </div>
-                        <div class="totals-item">
-                            <label>Tổng sản phẩm:</label>
-                            <div class="totals-value" id="cart-shipping">@ViewBag.Tongsoluong</div>
-                        </div>
-                        <div class="totals-item totals-item-total" style="font-size:20px; font-weight:bold ">
-                            <label>Tổng cộng:</label>
-                            <div class="totals-value" id="cart-subtotal">@String.Format("{0:0,0}", @ViewBag.Tongtien) VNĐ</div>
-                        </div>
-                    </div>
-                    @using (Html.BeginForm("DatHang", "GioHang", FormMethod.Get))
+
+            </div>
+            <div class="column" style="float: left; width: 50%; padding: 10px">
+
+                <table align="right" class="row-cols-2" style="display:flex">
+                    @using (Html.BeginForm())
                     {
-                        <button type="submit" class="checkout">Confirm</button>
+                        @Html.ValidationSummary(true)
+                        <tr style="height:40px">
+                            <td>Họ tên khách hàng:</td>
+                            <td style="font-weight:bold">@kh.fullname</td>
+                        </tr>
+                        <tr style="height:40px">
+                            <td>Email:</td>
+                            <td style="font-weight:bold">@kh.email</td>
+                        </tr>
+                        <tr style="height:40px">
+                            <td>Địa chỉ:</td>
+                            <td style="font-weight:bold">@kh.address</td>
+                        </tr>
+                        <tr style="height:40px">
+                            <td>Điện thoại:</td>
+                            <td style="font-weight:bold">@kh.phone_number</td>
+                        </tr>
+                        <tr style="height:40px">
+                            <td>Ngày đặt:</td>
+                            <td style="font-weight:bold">@DateTime.Now.ToShortDateString()</td>
+                        </tr>
+
+
 
                     }
-                </td>
-            </tr>
-        </table>
+                    <tr>
+                        <td>
+                            <div class="totals" style="width:300px; float:left">
+
+                                <div class="totals-item">
+                                    <label>Số loại gạo:</label>
+                                    <div class="totals-value" id="cart-tax">@ViewBag.Tongsoluongsanpham</div>
+                                </div>
+                                <div class="totals-item">
+                                    <label>Tổng sản phẩm:</label>
+                                    <div class="totals-value" id="cart-shipping">@ViewBag.Tongsoluong</div>
+                                </div>
+                                <div class="totals-item totals-item-total" style="font-size:20px; font-weight:bold ">
+                                    <label>Tổng cộng:</label>
+                                    <div class="totals-value" id="cart-subtotal">@String.Format("{0:0,0}", @ViewBag.Tongtien) VNĐ</div>
+                                </div>
+                            </div>
+                            @using (Html.BeginForm("DatHang", "GioHang"))
+                            {
+                                <button type="submit" class="checkout">Confirm</button>
+
+                            }
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+
+
         
 
     </div>
@@ -259,7 +275,7 @@
             }
     /* Totals section */
     .totals .totals-item {
-        float: right;
+        float: left;
         clear: both;
         width: 100%;
         margin-bottom: 10px;
@@ -270,17 +286,17 @@
             float: left;
             clear: both;
             width: 79%;
-            text-align: right;
+            text-align: left;
         }
 
         .totals .totals-item .totals-value {
-            float: right;
-            width: 21%;
+            width: 350px;
             text-align: right;
         }
 
     .totals .totals-item-total {
         font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+        margin-right:100px;
     }
 
     .checkout {
@@ -372,7 +388,7 @@
         }
 
         .totals .totals-item label {
-            width: 60%;
+            width: 80%;
         }
 
         .totals .totals-item .totals-value {
@@ -381,78 +397,3 @@
     }
 </style>
 
-<script>
-    /* Set rates + misc */
-    var taxRate = 0.05;
-    var shippingRate = 15.00;
-    var fadeTime = 300;
-
-
-    /* Assign actions */
-    $('.product-quantity input').onchange(function () {
-        updateQuantity(this);
-    });
-
-    $('.product-removal button').onclick(function () {
-        removeItem(this);
-    });
-
-
-    /* Recalculate cart */
-    function recalculateCart() {
-        var subtotal = 0;
-
-        /* Sum up row totals */
-        $('.product').each(function () {
-            subtotal += parseFloat($(this).children('.product-line-price').text());
-        });
-
-        /* Calculate totals */
-        var tax = subtotal * taxRate;
-        var shipping = (subtotal > 0 ? shippingRate : 0);
-        var total = subtotal + tax + shipping;
-
-        /* Update totals display */
-        $('.totals-value').fadeOut(fadeTime, function () {
-            $('#cart-subtotal').html(subtotal.toFixed(2));
-            $('#cart-tax').html(tax.toFixed(2));
-            $('#cart-shipping').html(shipping.toFixed(2));
-            $('#cart-total').html(total.toFixed(2));
-            if (total == 0) {
-                $('.checkout').fadeOut(fadeTime);
-            } else {
-                $('.checkout').fadeIn(fadeTime);
-            }
-            $('.totals-value').fadeIn(fadeTime);
-        });
-    }
-
-
-    /* Update quantity */
-    function updateQuantity(quantityInput) {
-        /* Calculate line price */
-        var productRow = $(quantityInput).parent().parent();
-        var price = parseFloat(productRow.children('.product-price').text());
-        var quantity = $(quantityInput).val();
-        var linePrice = price * quantity;
-
-        /* Update line price display and recalc cart totals */
-        productRow.children('.product-line-price').each(function () {
-            $(this).fadeOut(fadeTime, function () {
-                $(this).text(linePrice.toFixed(2));
-                recalculateCart();
-                $(this).fadeIn(fadeTime);
-            });
-        });
-    }
-
-
-    /* Remove item from cart */
-    function removeItem(removeButton) {
-        /* Remove row from DOM and recalc cart total */
-        var productRow = $(removeButton).parent().parent();
-        productRow.slideUp(fadeTime, function () {
-            productRow.remove();
-            recalculateCart();
-        });
-    }</script>

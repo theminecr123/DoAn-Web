@@ -159,6 +159,11 @@ namespace DoAn.Controllers
             dh.KH_id = kh.id;
             dh.order_date = DateTime.Now;
             dh.status = 0;
+            dh.email = kh.email;
+            dh.fullname = kh.fullname;
+            dh.phone_number = kh.phone_number;
+            dh.address = kh.address;
+            dh.total_money = (int)TongTien();
             //dh.thanhtoan = false;
 
             data.DonHangs.InsertOnSubmit(dh);
@@ -179,7 +184,7 @@ namespace DoAn.Controllers
 
             data.SubmitChanges();
             Session["GioHang"] = null;
-            return RedirectToAction("XacNhan", "GioHang");
+            return RedirectToAction("Index", "SanPham");
         }
 
         // GET: GioHang

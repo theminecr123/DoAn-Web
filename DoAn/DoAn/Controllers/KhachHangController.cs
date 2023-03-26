@@ -12,7 +12,7 @@ namespace DoAn.Controllers
     {
         MyDataDataContext data = new MyDataDataContext();
 
-        public bool CheckUser(string username, string email)
+        public bool CheckUser( string email)
         {
             var check = data.KhachHangs.Any(n => n.email == email);
             if (check == true)
@@ -21,16 +21,6 @@ namespace DoAn.Controllers
             return false;
         }
 
-        [HttpGet]
-        public ActionResult DangKy()
-        {
-            return View();
-        }
-        [HttpGet]
-        public ActionResult FlatSignup()
-        {
-            return View();
-        }
 
         [HttpGet]
         public ActionResult FlatModernSignup()
@@ -47,7 +37,14 @@ namespace DoAn.Controllers
             var email = collection["email"];
             var phone_number = collection["phone_number"];
 
-            if (String.IsNullOrEmpty(passConfirm))
+            if (CheckUser(email) == true)
+            {
+                ViewData["TrungEmail"] = "Email đã tồn tại!";
+                return View("FlatLogin");
+                
+            }
+
+            else if (String.IsNullOrEmpty(passConfirm))
             {
                 ViewData["NhappasswordXacNhan"] = "Nhập Mật khẩu xác nhận!";
             }
