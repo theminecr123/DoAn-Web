@@ -104,23 +104,31 @@
                                 </li>
                                 <li>
                                     @Html.ActionLink("Logout", "Logout", "KhachHang")
-                                </li>    
+                                </li>
+
+
 
                             }
                             else
                             {
                                 <li>
-                                    @using (Html.BeginForm("Index","Admin"))
+                                    @using (Html.BeginForm("Index", "NhanVien", FormMethod.Get))
                                     {
                                         <div class="container-log">
                                             <div>
                                                 <button class="log">
                                                     <i class="fa fa-user" aria-hidden="true" style="color:burlywood"></i>
+                                                    <span>@Session["Name"].ToString()</span>
+                                                    <span>| @Session["RoleName"].ToString()</span>
                                                 </button>
                                             </div>
                                         </div>
                                     }
                                 </li>
+                                <li>
+                                    @Html.ActionLink("Logout", "Logout", "KhachHang")
+                                </li>
+
                             }
 
                         }

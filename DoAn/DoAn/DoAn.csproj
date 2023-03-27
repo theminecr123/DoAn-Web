@@ -131,6 +131,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
@@ -331,6 +332,11 @@
     <Content Include="Views\GioHang\GioHangPartial.cshtml" />
     <Content Include="Views\KhachHang\FlatLogin.cshtml" />
     <Content Include="Views\GioHang\DatHang.cshtml" />
+    <Content Include="Views\NhanVien\Index.cshtml" />
+    <Content Include="Views\NhanVien\FlatLogin.cshtml" />
+    <Content Include="Views\NhanVien\DonHang.cshtml" />
+    <Content Include="Views\NhanVien\NhanVien.cshtml" />
+    <Content Include="Views\NhanVien\SanPham.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
