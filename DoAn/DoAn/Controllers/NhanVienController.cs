@@ -109,27 +109,27 @@ namespace DoAn.Controllers
 
         public ActionResult DonHang()
         {
-            List<DonHang> listDonHang = getDonHang();
-            
-
-            return View(listDonHang);
+            var all_dh = (from s in data.DonHangs select s).OrderBy(m => m.id);
+            return View(all_dh);
         }
 
         public ActionResult NhanVien()
         {
-            List<NhanVien> listNhanVien = getNhanVien();
-
-
-            return View(listNhanVien);
+            var all_nv = (from s in data.NhanViens select s).OrderBy(m => m.id);
+            return View(all_nv);
         }
 
-        public ActionResult SanPham()
+        
+
+        public ActionResult KhachHang()
         {
-            List<SanPham> listSanPham = getSanPham();
-
-
-            return View(listSanPham);
+            var all_kh = (from s in data.KhachHangs select s).OrderBy(m => m.id);
+            return View(all_kh);
         }
+
+
+        
+
 
         public string ProcessUpload(HttpPostedFileBase file)
         {
@@ -261,7 +261,39 @@ namespace DoAn.Controllers
         /*end NhanVien*/
 
         /*SanPham*/
-       
+        public ActionResult SanPham()
+        {
+            var all_sp = (from s in data.SanPhams select s).OrderBy(m => m.id);
+            return View(all_sp);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(SanPham model)
+        {
+            data.SanPhams.InsertOnSubmit(model);
+            try
+            {
+                data.SubmitChanges();
+                return Json(new { success = true });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+
+            }
+        }
+
+        public ActionResult abc()
+        {
+            return View();
+        }
+
         /*end SanPham*/
 
 

@@ -337,6 +337,8 @@
     <Content Include="Views\NhanVien\DonHang.cshtml" />
     <Content Include="Views\NhanVien\NhanVien.cshtml" />
     <Content Include="Views\NhanVien\SanPham.cshtml" />
+    <Content Include="Views\Shared\_Admin.cshtml" />
+    <Content Include="Views\NhanVien\KhachHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Web.UI;
 using X.PagedList;
 using Microsoft.Ajax.Utilities;
+using System.Web.Management;
 
 namespace DoAn.Controllers
 {
@@ -24,6 +25,7 @@ namespace DoAn.Controllers
             int pageNum = page ?? 1;
             return View(all_sp.ToPagedList(pageNum, pageSize));
         }
+       
         public ActionResult Detail(int id)
         {
             var sp = data.SanPhams.Where(m => m.id == id).First();
@@ -37,5 +39,6 @@ namespace DoAn.Controllers
             }
             
         }
+        
     }
 }

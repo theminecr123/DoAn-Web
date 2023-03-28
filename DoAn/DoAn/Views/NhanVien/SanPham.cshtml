@@ -1,47 +1,44 @@
 ﻿@model IEnumerable<DoAn.Models.SanPham>
 
 @{
-    Layout = null;
+    ViewBag.Title = "SanPham";
+    Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<!DOCTYPE html>
+<h2>SanPham</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>SanPham</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "CreateSP")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DM_id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.thumbnail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
+<p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Create New
+    </button>
+</p>
+<table>
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Tên Sản Phẩm
+        </th>
+        <th>
+            Đơn Giá
+        </th>
+        <th>
+            Hình Ảnh
+        </th>
+        <th>
+            Số lượng trong kho
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr class="spaceUnder">
             <td>
-                @Html.DisplayFor(modelItem => item.DM_id)
+                @Html.DisplayFor(modelItem => item.id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.title)
@@ -50,22 +47,82 @@
                 @Html.DisplayFor(modelItem => item.price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.thumbnail)
+                <img src="@item.thumbnail" width="150" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.quantity)
             </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
             </td>
         </tr>
     }
-    
-    </table>
-</body>
-</html>
+
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Tên gạo</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tên sản phẩm">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Loại gạo</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Đơn giá</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Giá tiền">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Số lượng</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Số lượng">
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Mô tả</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    th {
+        text-align: center;
+    }
+
+    td {
+        margin-top: 100px;
+        text-align: center;
+    }
+</style>

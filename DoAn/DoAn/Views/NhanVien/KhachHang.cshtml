@@ -1,20 +1,17 @@
-﻿@model IEnumerable<DoAn.Models.DonHang>
+﻿@model IEnumerable<DoAn.Models.KhachHang>
 
 @{
-    ViewBag.Title = "DonHang";
+    ViewBag.Title = "KhachHang";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>DonHang</h2>
+<h2>KhachHang</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.KH_id)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.fullname)
         </th>
@@ -28,25 +25,16 @@
             @Html.DisplayNameFor(model => model.address)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.note)
+            @Html.DisplayNameFor(model => model.password)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.order_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.total_money)
+            @Html.DisplayNameFor(model => model.role_id)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_id)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.fullname)
         </td>
@@ -60,16 +48,10 @@
             @Html.DisplayFor(modelItem => item.address)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.note)
+            @Html.DisplayFor(modelItem => item.password)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.order_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.total_money)
+            @Html.DisplayFor(modelItem => item.role_id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
