@@ -444,12 +444,13 @@ ul.infomaco {
 
 .coff_img {
      padding-right: 70px;
+     margin-left: 100px;
 }
 
 .Ricie_text h1 {
      text-align: left;
-     font-size: 121px;
-     line-height: 120px;
+     font-size: 60px;
+     line-height: 100px;
      color: #fff;
      font-weight: bold;
      padding-bottom: 48px;

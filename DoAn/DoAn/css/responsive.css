@@ -97,8 +97,8 @@
         max-width: inherit;
     }
     .Ricie_text h1 {
-        font-size: 90px;
-        line-height: 89px;
+        font-size: 90px; /*90px*/
+        line-height: 89px;/* 89*/
     }
     .owl-nav {
         display: none;
