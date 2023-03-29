@@ -5,35 +5,43 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <!DOCTYPE html>
+<h2>Nhân Viên</h2>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>NhanVien</title>
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @if (int.Parse(@Session["IDuser"].ToString()) == 1)
+        {
+            using (Html.BeginForm("CreateNV", "NhanVien", FormMethod.Get))
+            {
+                <button type="submit" class="btn btn-primary">
+                    Create New
+                </button>
+            }
+
+        }
+
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.fullname)
+                Họ và tên
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.phone_number)
+                Số điện thoại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.address)
+                Địa chỉ
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role_id)
+                Chức vụ
             </th>
             <th></th>
         </tr>
@@ -54,15 +62,27 @@
                     @Html.DisplayFor(modelItem => item.address)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.password)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.role_id)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    @if (int.Parse(@Session["IDuser"].ToString()) == 1)
+                    {
+                        using (Html.BeginForm("EditNV", "NhanVien", new { id = item.id }, FormMethod.Get))
+                        {
+                            <button type="submit" class="btn btn-primary">
+                                Edit
+                            </button>
+                        }
+
+                        using (Html.BeginForm("DeleteNV", "NhanVien", new { id = item.id }, FormMethod.Get))
+                        {
+                            <button type="submit" class="btn btn-primary">
+                                Delete
+                            </button>
+                        }
+                    }
+
+
                 </td>
             </tr>
         }

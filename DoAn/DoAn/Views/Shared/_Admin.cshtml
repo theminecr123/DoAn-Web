@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Admin Dashboard | By Code Info</title>
+    <title>Admin Dashboard | Ricie</title>
     <link rel="stylesheet" href="style.css" />
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
@@ -83,6 +83,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/custom.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+
 </body>
 </html>
 <style>
@@ -97,7 +103,7 @@
         outline: none;
         text-decoration: none;
         box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
+        font-family: "Work Sans", sans-serif;
     }
 
     body {
@@ -222,7 +228,7 @@
 
     /* Main Body Section */
     .main-body {
-        width: 70%;
+        width: 80%;
         padding: 1rem;
     }
 
@@ -264,6 +270,7 @@
         padding: 1rem;
         text-align: left;
         border-radius: 10px;
+        width:100%
     }
 
         table td, th {

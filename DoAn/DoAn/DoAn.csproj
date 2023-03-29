@@ -339,6 +339,15 @@
     <Content Include="Views\NhanVien\SanPham.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\NhanVien\KhachHang.cshtml" />
+    <Content Include="Views\NhanVien\CreateSP.cshtml" />
+    <Content Include="Views\NhanVien\EditSP.cshtml" />
+    <Content Include="Views\NhanVien\DeleteSP.cshtml" />
+    <Content Include="Views\NhanVien\CreateNV.cshtml" />
+    <Content Include="Views\NhanVien\EditNV.cshtml" />
+    <Content Include="Views\NhanVien\DeleteNV.cshtml" />
+    <Content Include="Views\NhanVien\CreateKH.cshtml" />
+    <Content Include="Views\NhanVien\EditKH.cshtml" />
+    <Content Include="Views\NhanVien\DeleteKH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,39 +5,39 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>DonHang</h2>
+<h2>Đơn Hàng</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+   
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.KH_id)
+            Mã khách hàng
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fullname)
+            Họ và tên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.phone_number)
+            Số điện thoại
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.address)
+            Địa chỉ
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.note)
+            Ghi chú
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.order_date)
+            Ngày đặt hàng
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            Trạng thái
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.total_money)
+            Tổng tiền
         </th>
         <th></th>
     </tr>
@@ -73,7 +73,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>

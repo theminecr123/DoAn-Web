@@ -72,54 +72,17 @@ namespace DoAn.Controllers
             return View();
         }
 
-        public List<DonHang> getDonHang()
+       
+        public string ProcessUploadGao(HttpPostedFileBase file)
         {
-            List<DonHang> listDonHang = Session["DonHang"] as List<DonHang>;
-            if (listDonHang == null)
+            if (file == null)
             {
-                listDonHang = new List<DonHang>();
-                Session["listDonHang"] = listDonHang;
+                return "";
             }
-            return listDonHang;
-
+            file.SaveAs(Server.MapPath("~/Content/images/Gao/" + file.FileName));
+            return "/Content/images/Gao/" + file.FileName;
         }
-
-        public List<NhanVien> getNhanVien()
-        {
-            List<NhanVien> listNhanVien = Session["NhanVien"] as List<NhanVien>;
-            if (listNhanVien == null)
-            {
-                listNhanVien = new List<NhanVien>();
-                Session["listNhanVien"] = listNhanVien;
-            }
-            return listNhanVien;
-
-        }
-         public List<SanPham> getSanPham()
-        {
-            List<SanPham> listSanPham = Session["SanPham"] as List<SanPham>;
-            if (listSanPham == null)
-            {
-                listSanPham = new List<SanPham>();
-                Session["listSanPham"] = listSanPham;
-            }
-            return listSanPham;
-
-        }
-
-        public ActionResult DonHang()
-        {
-            var all_dh = (from s in data.DonHangs select s).OrderBy(m => m.id);
-            return View(all_dh);
-        }
-
-        public ActionResult NhanVien()
-        {
-            var all_nv = (from s in data.NhanViens select s).OrderBy(m => m.id);
-            return View(all_nv);
-        }
-
-        
+        /*KhachHang*/
 
         public ActionResult KhachHang()
         {
@@ -127,30 +90,98 @@ namespace DoAn.Controllers
             return View(all_kh);
         }
 
-
-        
-
-
-        public string ProcessUpload(HttpPostedFileBase file)
+        public ActionResult CreateKH()
         {
-            if (file == null)
-            {
-                return "";
-            }
-            file.SaveAs(Server.MapPath("~/Content/images/" + file.FileName));
-            return "/Content/images/" + file.FileName;
+            return View();
         }
+        [HttpPost]
+        public ActionResult CreateKH(FormCollection collection, KhachHang kh)
+        {
+            var fullname = collection["fullname"];
+            var email = collection["email"];
+            var phone_number = collection["phone_number"];
+            var address = collection["address"];
+            var password = collection["password"];
+          
+                kh.fullname = fullname.ToString();
+                kh.email = email.ToString();
+                kh.phone_number = phone_number.ToString();
+                kh.address = address;
+                kh.password = password;
+                data.KhachHangs.InsertOnSubmit(kh);
+                data.SubmitChanges();
+                return RedirectToAction("KhachHang");
+            
+
+        }       
+        public ActionResult EditKH(int id)
+        {
+            var E_sach = data.KhachHangs.First(m => m.id == id);
+            return View(E_sach);
+        }
+        [HttpPost]
+        public ActionResult EditKH(int id, FormCollection collection, string actionName)
+        {
+            var E_sach = data.KhachHangs.First(m => m.id == id);
+            var fullname = collection["fullname"];
+            var email = collection["email"];
+            var address = collection["address"];
+            var password = collection["ngaycatnhat"];
+            E_sach.id = id;
+
+      
+           
+                E_sach.fullname = fullname;
+                E_sach.email = email;
+                E_sach.address = address;
+                E_sach.password = password;
+                UpdateModel(E_sach);
+
+
+                data.SubmitChanges();
+                return RedirectToAction("KhachHang");
+            
+
+
+        }
+
+
+
+        //-----------------------------------------
+        public ActionResult DeleteKH(int id)
+        {
+            var D_sach = data.SanPhams.First(m => m.id == id);
+            return View(D_sach);
+        }
+        [HttpPost]
+        public ActionResult DeleteKH(int id, FormCollection collection)
+        {
+            var D_sach = data.SanPhams.Where(m => m.id == id).First();
+            data.SanPhams.DeleteOnSubmit(D_sach);
+            data.SubmitChanges();
+            return RedirectToAction("KhachHang");
+        }
+
+
+
+        /*!KhachHang*/
+
 
         /*DonHang*/
 
         //-----------------------------------------
-        public ActionResult Delete(int id)
+        public ActionResult DonHang()
+        {
+            var all_dh = (from s in data.DonHangs select s).OrderBy(m => m.id);
+            return View(all_dh);
+        }
+        public ActionResult DeleteDH(int id)
         {
             var D_NhanVien = data.DonHangs.First(m => m.id == id);
             return View(D_NhanVien);
         }
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteDH(int id, FormCollection collection)
         {
             var D_NhanVien = data.DonHangs.Where(m => m.id == id).First();
             data.DonHangs.DeleteOnSubmit(D_NhanVien);
@@ -160,6 +191,11 @@ namespace DoAn.Controllers
         /*end DonHang*/
 
         /*NhanVien*/
+        public ActionResult NhanVien()
+        {
+            var all_nv = (from s in data.NhanViens select s).OrderBy(m => m.id);
+            return View(all_nv);
+        }
         public ActionResult CreateNV()
         {
             if (int.Parse(Session["IDuser"].ToString()) == 1)
@@ -181,12 +217,7 @@ namespace DoAn.Controllers
             var role_id = collection["role_id"];
             
 
-            if (string.IsNullOrEmpty(fullname))
-            {
-                ViewData["Error"] = "Don't empty!";
-            }
-            else
-            {
+            
                 s.fullname = fullname.ToString();
                 s.email = email.ToString();
                 s.phone_number = phone_number;
@@ -196,14 +227,23 @@ namespace DoAn.Controllers
                 data.NhanViens.InsertOnSubmit(s);
                 data.SubmitChanges();
                 return RedirectToAction("NhanVien");
-            }
-            return this.CreateNV();
+
         }
        
         public ActionResult EditNV(int id)
         {
-            var E_NhanVien = data.NhanViens.First(m => m.id == id);
-            return View(E_NhanVien);
+            if (int.Parse(Session["IDuser"].ToString()) == 1)
+            {
+                var sp = data.NhanViens.First(m => m.id == id);
+                return View(sp);
+            }
+
+            else
+            {
+                ViewBag.ErrorAccess = "Bạn không có quyền truy cập trang này!";
+                return RedirectToAction("Index", "NhanVien");
+            }
+            
         }
         [HttpPost]
         public ActionResult EditNV(int id, FormCollection collection)
@@ -245,10 +285,11 @@ namespace DoAn.Controllers
 
 
         //-----------------------------------------
-        public ActionResult DeletenV(int id)
-        {
-            var D_NhanVien = data.NhanViens.First(m => m.id == id);
-            return View(D_NhanVien);
+        public ActionResult DeleteNV(int id)
+        {      
+                var D_NhanVien = data.NhanViens.First(m => m.id == id);
+                return View(D_NhanVien);
+      
         }
         [HttpPost]
         public ActionResult DeleteNV(int id, FormCollection collection)
@@ -267,34 +308,81 @@ namespace DoAn.Controllers
             return View(all_sp);
         }
 
-        public ActionResult Create()
+        public ActionResult CreateSP()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(SanPham model)
+        public ActionResult CreateSP(FormCollection collection, SanPham sp)
         {
-            data.SanPhams.InsertOnSubmit(model);
-            try
-            {
+            var title = collection["title"];
+            var DM_id = collection["DM_id"];
+            var thumbnail = collection["thumbnail"];
+            var price = collection["price"];
+            var quantity = Convert.ToInt32(collection["quantity"]);
+            var descripton = collection["descripton"];
+
+
+                sp.title = title;
+                sp.thumbnail = thumbnail;
+                sp.price = int.Parse(price);
+                sp.quantity = quantity;
+                sp.DM_id = int.Parse(DM_id);
+                sp.description = descripton;
+                data.SanPhams.InsertOnSubmit(sp);
                 data.SubmitChanges();
-                return Json(new { success = true });
-
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false });
-
-            }
+                return RedirectToAction("SanPham");
+            
+           
         }
-
-        public ActionResult abc()
+        public ActionResult EditSP(int id)
         {
-            return View();
+            var sp = data.SanPhams.First(m => m.id == id);
+            return View(sp);
+        }
+        [HttpPost]
+        public ActionResult EditSP(int id, FormCollection collection)
+        {
+            var sp = data.SanPhams.First(m => m.id == id);
+            var title = collection["title"];
+            var DM_id = collection["DM_id"];
+            var thumbnail = collection["thumbnail"];
+            var price = collection["price"];
+            var quantity = Convert.ToInt32(collection["quantity"]);
+            var descripton = collection["descripton"];
+            sp.id = id;
+    
+          
+                sp.title = title;
+                sp.thumbnail = thumbnail;
+                sp.price = int.Parse(price);
+                sp.quantity = quantity;
+                sp.DM_id = int.Parse(DM_id);
+                sp.description = descripton;
+                UpdateModel(sp);
+
+
+                data.SubmitChanges();
+                return RedirectToAction("SanPham");
+            
+
+        }
+        public ActionResult DeleteSP(int id)
+        {
+            var sp = data.SanPhams.First(m => m.id == id);
+            return View(sp);
+        }
+        [HttpPost]
+        public ActionResult DeleteSP(int id, FormCollection collection)
+        {
+            var sp = data.SanPhams.Where(m => m.id == id).First();
+            data.SanPhams.DeleteOnSubmit(sp);
+            data.SubmitChanges();
+            return RedirectToAction("SanPham");
         }
 
-        /*end SanPham*/
+
 
 
 

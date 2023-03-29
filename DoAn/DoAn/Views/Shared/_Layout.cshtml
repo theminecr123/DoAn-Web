@@ -27,9 +27,9 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+    @*<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"> </script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>*@
     
 
 </head>
@@ -41,7 +41,7 @@
     <!-- loader  -->
     <!--  footer -->
 <body>
-   
+
     <div class="header" style=" background: #2F5233; ">
         <div class="container-fluid">
             <div class="row d_flex">
@@ -155,7 +155,7 @@
                         <li><a href="Javascript:void(0)"><i class="fa fa-envelope-o" aria-hidden="true"></i> demo@gmail.com</a></li>
                     </ul>
                 </div>
-                                             
+
             </div>
         </div>
     </div>
@@ -249,6 +249,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/custom.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+
 </body>
 </html>
 

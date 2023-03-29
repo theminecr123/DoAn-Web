@@ -78,7 +78,7 @@ namespace DoAn.Controllers
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();
             ViewBag.Tongsoluongsanpham = TongSoLuongSanPham();
-
+            Session["SoLuongSP"] = TongSoLuongSanPham();
             return View(listGioHang);
         }
 
