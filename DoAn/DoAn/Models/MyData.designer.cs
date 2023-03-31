@@ -57,7 +57,7 @@ namespace DoAn.Models
     #endregion
 		
 		public MyDataDataContext() : 
-				base("Data Source=ASUS\\SQLEXPRESS;Initial Catalog=RiceStore;User ID=saa;Password=1234", mappingSource)
+				base("Data Source=DONGTRIEU;Initial Catalog=RiceStore;User ID=sa;Password=sa", mappingSource)
 		{
 			OnCreated();
 		}
@@ -1749,7 +1749,7 @@ namespace DoAn.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int id
 		{
 			get
