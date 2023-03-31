@@ -150,14 +150,14 @@ namespace DoAn.Controllers
         //-----------------------------------------
         public ActionResult DeleteKH(int id)
         {
-            var D_sach = data.SanPhams.First(m => m.id == id);
-            return View(D_sach);
+            var kh = data.KhachHangs.First(m => m.id == id);
+            return View(kh);
         }
         [HttpPost]
         public ActionResult DeleteKH(int id, FormCollection collection)
         {
-            var D_sach = data.SanPhams.Where(m => m.id == id).First();
-            data.SanPhams.DeleteOnSubmit(D_sach);
+            var kh = data.KhachHangs.Where(m => m.id == id).First();
+            data.KhachHangs.DeleteOnSubmit(kh);
             data.SubmitChanges();
             return RedirectToAction("KhachHang");
         }

@@ -1,4 +1,5 @@
-﻿using DoAn.Models;
+﻿using DoAn.common;
+using DoAn.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -146,7 +147,7 @@ namespace DoAn.Controllers
 
             return View(listGioHang);
         }
-
+        [HttpPost]
         public ActionResult DatHang(FormCollection collection)
         {
             DonHang dh = new DonHang();
@@ -181,6 +182,19 @@ namespace DoAn.Controllers
 
                 data.ChiTietDonHangs.InsertOnSubmit(ctdh);
             }
+
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/neworder.html"));
+            content = content.Replace("{{CustomerName}}",kh.fullname);
+            content = content.Replace("{{Phone}}",kh.phone_number);
+            content = content.Replace("{{Email}}",kh.email);
+            content = content.Replace("{{Address}}",kh.address);
+            content = content.Replace("{{OrderID}}",dh.id.ToString());
+            content = content.Replace("{{OrderDate}}",dh.order_date.ToString());
+            content = content.Replace("{{Total}}",TongTien().ToString("#,##0.00")+"VND");
+            var toEmail = kh.email;
+
+            new MailHelper().SendMail(kh.email,"Ricie - Web bán gạo hàng đầu Hutech.",content);
+            new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
 
             data.SubmitChanges();
             Session["GioHang"] = null;
