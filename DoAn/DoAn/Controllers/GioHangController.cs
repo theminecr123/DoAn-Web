@@ -200,8 +200,8 @@ namespace DoAn.Controllers
             content = content.Replace("{{OrderDate}}",dh.order_date.ToString());
             content = content.Replace("{{Total}}",TongTien().ToString("#,##0.00")+"VND");
             var toEmail = kh.email;
+            new MailHelper().SendMail(kh.email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
 
-            new MailHelper().SendMail(kh.email,"Ricie - Web bán gạo hàng đầu Hutech.",content);
             new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
 
             data.SubmitChanges();

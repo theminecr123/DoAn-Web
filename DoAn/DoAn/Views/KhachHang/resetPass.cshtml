@@ -1,9 +1,7 @@
-﻿@model DoAn.Models.KhachHang
+﻿
 @{
     Layout = null;
 }
-
-
 
 <!DOCTYPE html>
 <html>
@@ -22,64 +20,21 @@
             {
                 <button type="submit" class="btn-back"><span>&#8249</span></button>
             }
-            @using (Html.BeginForm("FlatModernSignup", "KhachHang", FormMethod.Post, new { @id = "signup" }))
-            {
-                @Html.AntiForgeryToken()
 
-        <form>
-            <label for="chk" aria-hidden="true">Sign up</label>
-            @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control", placeholder = "Full name", required = "" } })
-            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
-
-            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", required = "" } })
-            @Html.ValidationMessageFor(model => model.email, "", new { @class = "badge badge-danger" })
-            <div style="font-size:15px; margin-left:50px;color:red">@ViewData["TrungEmail"]</div>
-
-
-            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "Password", required = "" } })
-            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-
-            <input class="form-control text-box single-line input-validation-error"
-                   data-val="true" data-val-required="Phải nhập mật khẩu xác nhận!"
-                   id="passConfirm" name="passConfirm" type="password" value="" aria
-                   describedby="MatKhauXacNhan-error" aria-invalid="true" placeholder="Confirm Password">
-            <div style="font-size:15px; margin-left:50px;color:red">@ViewData["NhappasswordXacNhan"]</div>
-            <div style="font-size: 15px; margin: 10px;color:red">@ViewData["passwordGiongNhau"]</div>
-
-
-
-
-
-
-            @Html.EditorFor(model => model.phone_number, new { htmlAttributes = new { @class = "form-control", placeholder = "Phone Number", required = "" } })
-            @Html.ValidationMessageFor(model => model.phone_number, "", new { @class = "text-danger" })
-            <button>Sign up</button>
-        </form>
-            }
-        </div>
-
-        <div class="login">
-
-            @using (Html.BeginForm("FlatLogin", "KhachHang", FormMethod.Post, new { @id = "login" }))
-            {
-                @Html.AntiForgeryToken()
-
-                <form>
-                    <label for="chk" aria-hidden="true">Login</label>
-                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "email", required = "" } })
-                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-
-                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "password", required = "" } })
-                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                    <div style="font-size:15px; margin-left:50px;color:red">@ViewData["CheckMK"]</div>
-                    <a href="@Url.Action("resetPass")"></a>
-
-                    <button>Login</button>
-                </form>
-            }
+            @Html.AntiForgeryToken()
            
+            <form asp-action="resetPass" method="get" class="search-box">
+                <label for="chk" aria-hidden="true">Forget Password</label>
+                <input type="text" name="email" class="input-search" placeholder="Email...">
+                <button>Quên mật khẩu</button>
+            </form>
+            }
         </div>
-    </div>
+
+       
+            
+     </div>
+ 
 </body>
 </html>
 

@@ -58,26 +58,47 @@
         <div class="column"></div>
     </div>
 
- 
+
 </body>
 
 
-
-<p>
-    @Html.ActionLink("Sửa thông tin", "Edit", new { id = Model.id }) 
+<p class="edit">
+    @Html.ActionLink("Sửa thông tin", "Edit", new { id = Model.id })
 </p>
+<p class="changepass">
+    @Html.ActionLink("Đổi mật khẩu", "changePassword", new { id = Model.id })
 
+</p>
 <style>
-    p {
-        font-size: 25px;
-        padding-left: 100px;
-        color:greenyellow
-    }
+   
+        .edit {
+            background-color: #0094ff;
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .changepass {
+            background-color: #4CAF50;
+            display: inline-block;
+        padding: 10px 20px;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
     .column {
         float: right;
         width: 50%;
-        padding-left:100px;
-        font-size:25px;
+        padding-left: 100px;
+        font-size: 25px;
     }
 
     /* Clear floats after the columns */
@@ -86,5 +107,4 @@
         display: table;
         clear: both;
     }
-
 </style>

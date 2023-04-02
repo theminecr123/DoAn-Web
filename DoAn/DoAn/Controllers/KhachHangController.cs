@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -130,7 +131,7 @@ namespace DoAn.Controllers
             }
             else
             {
-                ViewBag.ThongBao = "Sai thông tin tài khoản";
+                ViewData["CheckMK"] = "Sai Thông Tin tài khoản! ";
                 return View();
             }
         }
@@ -175,34 +176,86 @@ namespace DoAn.Controllers
             var email = collection["email"];
             var address = collection["address"];
 
+            
+            kh.id = id;         
+                kh.fullname = fullname;
+                kh.address = address;
+                data.SubmitChanges();
+            Session["TaiKhoan"] = kh;
+            Session["IDKH"] = kh.id;
+            Session["IDuser"] = kh.role_id;
+            Session["Name"] = kh.fullname;
+            Session["Address"] = kh.address;
+            return RedirectToAction("Info", "KhachHang", new { id = kh.id });
+           
+                     
+
+
+
+        }
+        public ActionResult changePassword(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("FlatLogin", "KhachHang");
+
+            }
+            var kh = data.KhachHangs.First(m => m.id == id);
+            return View(kh);
+        }
+
+        [HttpPost]
+        public ActionResult changePassword(int id, FormCollection collection)
+        {
+            var kh = data.KhachHangs.First(m => m.id == id);
             var oldPassword = collection["oldPassword"];
             var password = collection["password"];
             var confirmPassword = collection["confirmPassword"];
             kh.id = id;
+            if (!Equals(password, confirmPassword))
+            {
+                ViewData["passwordGiongNhau"] = "Mật khẩu và Mật khẩu xác nhận phải giống nhau";
+                return View(kh);
+            }
+
             if (VerifyPassword(oldPassword, kh.password))
             {
                 kh.password = HashPassword(password);
-                kh.fullname = fullname;
-                kh.address = address;
                 data.SubmitChanges();
-                return RedirectToAction("Info", "KhachHang", new {id = kh.id});
+                return RedirectToAction("Info", "KhachHang", new { id = kh.id });
 
             }
+
             else
             {
                 ViewData["saiMK"] = "Mật khẩu sai";
-                return View();
+                return View(kh);
             }
-
-
         }
 
-        
+        public ActionResult resetPass(string email)
+        {
+            Random random = new Random();
+            
+            int otp = random.Next(100000, 999999); 
+            ViewBag.OTP = otp;
+            //string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/neworder.html"));
+            //content = content.Replace("{{otp}}", otp.ToString());
+          
+            //var toEmail = email;
+
+            //new MailHelper().SendMail(email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+            //new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+
+            return View();
+        }
 
         // GET: KhachHang
         public ActionResult Index()
         {
             return RedirectToAction("FlatLogin", "KhachHang");
         }
+
+
     }
 }

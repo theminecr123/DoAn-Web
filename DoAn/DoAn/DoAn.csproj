@@ -225,6 +225,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\common\neworder.html" />
+    <Content Include="Content\common\resetPass.html" />
     <Content Include="Content\images\Gao\gao1.jpg" />
     <Content Include="Content\images\Gao\gao10.jpg" />
     <Content Include="Content\images\Gao\gao11.jpg" />
@@ -413,6 +414,8 @@
     <Content Include="Views\NhanVien\DeleteKH.cshtml" />
     <Content Include="Views\KhachHang\Info.cshtml" />
     <Content Include="Views\KhachHang\Edit.cshtml" />
+    <Content Include="Views\KhachHang\changePassword.cshtml" />
+    <Content Include="Views\KhachHang\resetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
