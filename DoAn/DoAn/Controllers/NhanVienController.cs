@@ -68,7 +68,10 @@ namespace DoAn.Controllers
             {
                 return RedirectToAction("FlatLogin", "NhanVien");
             }
-
+            if (int.Parse(Session["IDuser"].ToString()) == 2 )
+            {
+                return RedirectToAction("FlatLogin", "NhanVien");
+            }
             return View();
         }
 
@@ -126,7 +129,7 @@ namespace DoAn.Controllers
             var fullname = collection["fullname"];
             var email = collection["email"];
             var address = collection["address"];
-            var password = collection["ngaycatnhat"];
+            var password = collection["password"];
             E_sach.id = id;
 
       

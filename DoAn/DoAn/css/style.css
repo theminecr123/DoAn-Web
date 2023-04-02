@@ -949,17 +949,17 @@ ul.infomaco {
 }
 
 .subsci_btn {
-     font-size: 25px;
-     transition: ease-in all 0.5s;
-     background-color: transparent;
-     color: #db3620;
-     display: block;
-     font-weight: bold;
-     float: right;
-     line-height: 25px;
-     position: absolute;
-     top: -31px;
-     right: 15px;
+    font-size: 25px;
+    transition: ease-in all 0.5s;
+    background-color: transparent;
+    color: #db3620;
+    display: block;
+    font-weight: bold;
+    float: right;
+    line-height: 25px;
+    position: absolute;
+    top: 340px;
+    right: 190px;
 }
 
 .subsci_btn:hover {

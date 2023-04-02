@@ -141,6 +141,13 @@ namespace DoAn.Controllers
 
                 return RedirectToAction("Index", "SanPham");
             }
+
+            if (Session["Address"] == null)
+            {
+                return RedirectToAction("Info", "KhachHang", new { id = int.Parse(Session["IDKH"].ToString()) });
+
+            }
+
             List<GioHang> listGioHang = getGioHang();
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();

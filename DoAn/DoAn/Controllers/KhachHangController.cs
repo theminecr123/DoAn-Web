@@ -1,4 +1,6 @@
-﻿using DoAn.Models;
+﻿using DoAn.common;
+using DoAn.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,8 +122,10 @@ namespace DoAn.Controllers
             {
                 ViewBag.ThongBao = "Đã đăng nhập!";
                 Session["TaiKhoan"] = kh;
+                Session["IDKH"] = kh.id;
                 Session["IDuser"] = kh.role_id;
                 Session["Name"] = kh.fullname;
+                Session["Address"] = kh.address;
                 return RedirectToAction("Index", "SanPham");
             }
             else
@@ -137,15 +141,68 @@ namespace DoAn.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult ProfileKH()
+        public ActionResult Info(int? id)
         {
-            return View();
+            
+            if (id == null || Session["IDKH"] == null)
+                return RedirectToAction("Index", "Home");
+            else if(id != int.Parse(Session["IDKH"].ToString()))
+            {
+                return RedirectToAction("Info", "KhachHang", new {id = int.Parse(Session["IDKH"].ToString()) });
+
+            }
+            var kh = data.KhachHangs.First(x=>x.id == id);
+            return View(kh);
         }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("FlatLogin", "KhachHang");
+
+            }
+            var kh = data.KhachHangs.First(m => m.id == id);
+            return View(kh);
+        }
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            
+
+            var kh = data.KhachHangs.First(m => m.id == id);
+            var fullname = collection["fullname"];
+            var email = collection["email"];
+            var address = collection["address"];
+
+            var oldPassword = collection["oldPassword"];
+            var password = collection["password"];
+            var confirmPassword = collection["confirmPassword"];
+            kh.id = id;
+            if (VerifyPassword(oldPassword, kh.password))
+            {
+                kh.password = HashPassword(password);
+                kh.fullname = fullname;
+                kh.address = address;
+                data.SubmitChanges();
+                return RedirectToAction("Info", "KhachHang", new {id = kh.id});
+
+            }
+            else
+            {
+                ViewData["saiMK"] = "Mật khẩu sai";
+                return View();
+            }
+
+
+        }
+
+        
 
         // GET: KhachHang
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("FlatLogin", "KhachHang");
         }
     }
 }

@@ -98,19 +98,28 @@
                             if (int.Parse(Session["IDuser"].ToString()) == 2)
                             {
                                 <li>
-                                    @using (Html.BeginForm("Info", "KhachHang"))
+                                    @if (Session["IDKH"] == null)
                                     {
-                                        <div class="container-log">
-                                            <div>
-                                                <button class="log">
-                                                    <i class="fa fa-user" aria-hidden="true" style="color:burlywood"></i>
-                                                    @Session["Name"].ToString()
-
-                                                </button>
-
-                                            </div>
-                                        </div>
+                                        Response.Redirect("/KhachHang/FlatLogin");
                                     }
+
+                                    else
+                                    {
+                                        using (Html.BeginForm("Info", "KhachHang", new { id = int.Parse(Session["IDKH"].ToString()) }))
+                                        {
+                                            <div class="container-log">
+                                                <div>
+                                                    <button class="log">
+                                                        <i class="fa fa-user" aria-hidden="true" style="color:burlywood"></i>
+                                                        @Session["Name"].ToString()
+
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
                                 </li>
                                 <li>
                                     @Html.ActionLink("Logout", "Logout", "KhachHang")
@@ -270,6 +279,25 @@
 </html>
 
 <style>
+    .subsci_btn {
+        font-size: 25px;
+        transition: ease-in all 0.5s;
+        background-color: transparent;
+        color: #db3620;
+        display: block;
+        font-weight: bold;
+        float: right;
+        line-height: 25px;
+        position: absolute;
+        top: 340px;
+        right: 190px;
+    }
+
+        .subsci_btn:hover {
+            transition: ease-in all 0.5s;
+            color: #fff;
+        }
+
     .inner_page .header {
         background: #2F5233;
     }
