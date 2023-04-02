@@ -132,6 +132,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="common\MailHelper.cs" />
+    <Compile Include="common\PayCompare.cs" />
+    <Compile Include="common\PayLib.cs" />
+    <Compile Include="common\Util.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -181,6 +184,7 @@
     <Content Include="Content\images\Trang_Tri1\1.png" />
     <Content Include="Content\images\Trang_Tri1\2.jpg" />
     <Content Include="Content\images\Trang_Tri1\3.jpg" />
+    <Content Include="Content\images\Trang_Tri1\cash.png" />
     <Content Include="Content\images\Trang_Tri1\G1.png" />
     <Content Include="Content\images\Trang_Tri1\G2.png" />
     <Content Include="Content\images\Trang_Tri1\G3.png" />
@@ -189,6 +193,7 @@
     <Content Include="Content\images\Trang_Tri1\k3.jpg" />
     <Content Include="Content\images\Trang_Tri1\Logo1.png" />
     <Content Include="Content\images\Trang_Tri1\Logo2.png" />
+    <Content Include="Content\images\Trang_Tri1\vnpay.png" />
     <Content Include="css\animate.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
@@ -350,6 +355,8 @@
     <Content Include="Views\NhanVien\CreateKH.cshtml" />
     <Content Include="Views\NhanVien\EditKH.cshtml" />
     <Content Include="Views\NhanVien\DeleteKH.cshtml" />
+    <Content Include="Views\SanPham\In.cshtml" />
+    <Content Include="Views\KhachHang\ProfileKH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

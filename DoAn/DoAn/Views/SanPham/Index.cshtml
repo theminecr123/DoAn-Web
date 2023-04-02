@@ -9,37 +9,58 @@
 @using X.PagedList.Mvc.Common;
 @using PagedList.Mvc;
 
+<div class="row">
+    <div class="column">
+        <form asp-action="Index" method="get" class="search-box">
+            <button class="btn-search"><i class="fa fa-search"></i></button>
+            <input type="text" name="nameSearch" class="input-search" placeholder="Tên gạo...">
+        </form>
+    </div>
+    <div class="column" >
+        Giá
+        <form asp-action="Index" method="get" class="search-box" >
+            <input type="number" name="from"> - <input type="number" name="to">            <button><i class="fa fa-search"></i></button>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
 <body class="main-layout inner_page">
-    
+
 
 
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container" >
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container">
                 <div class="panel panel-default">
                     <div class="panel panel-heading" style="font-size:20px; padding:20px; text-align:center; padding-top:100px">
                         @item.title
-                        
+
 
                         <a href="@Url.Action("Detail", new {id=item.id })">
-                            <img src=@Url.Content(item.thumbnail) class="img-responsive" alt=""  />
+                            <img src=@Url.Content(item.thumbnail) class="img-responsive" alt="" />
                         </a>
 
 
                     </div>
-                    <div class="panel-body" >
-                        
-                        
+                    <div class="panel-body">
+
+
 
                     </div>
                     <div class="panel-footer clearfix">
                         <div class="pull-right" style="padding-right:200px">
-                            <p><strong>Giá: </strong>@item.price VNĐ</p>
+                            <p><strong>Giá: </strong>@String.Format("{0:0,0}", @item.price) VNĐ</p>
 
-                            
 
-                            @using (Html.BeginForm("addCart", "GioHang", new { @id = item.id , @strURL = Request.Url.ToString() }))
+
+                            @using (Html.BeginForm("addCart", "GioHang", new { @id = item.id, @strURL = Request.Url.ToString() }))
                             {
                                 <button type="submit" class="btn-order"><span>Order</span></button>
                             }
@@ -65,6 +86,17 @@
 </div>
 
 <style>
+    .column {
+        float: left;
+        width: 50%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 
     .btn-order {
         background-color: #4CAF50;
@@ -116,16 +148,16 @@
         justify-content: center;
         align-items: center;
         height: 100px;
-        
     }
-        
+
         .MenuTrang .pagination-container .pagination .PagedList-skipToNext {
             margin-left: 300px;
         }
-            
+
 
         .MenuTrang li {
         }
+
             .MenuTrang li a {
                 display: inline-block;
                 text-align: left;
@@ -142,7 +174,6 @@
                 border-radius: 12px;
                 text-align: center;
             }
-        
 </style>
 <style type="/text/css">
     #mau-nut a {
@@ -164,6 +195,68 @@
     .show-read-more .more-text {
         display: none;
     }
+
+    .search-box {
+        width: fit-content;
+        height: fit-content;
+        position: relative;
+    }
+
+    .input-search {
+        height: 50px;
+        width: 50px;
+        border-style: none;
+        padding: 10px;
+        font-size: 18px;
+        letter-spacing: 2px;
+        outline: none;
+        border-radius: 25px;
+        transition: all .5s ease-in-out;
+        background-color: #22a6b3;
+        padding-right: 40px;
+        color: black;
+    }
+
+        .input-search::placeholder {
+            color: rgba(255,255,255,.5);
+            font-size: 18px;
+            letter-spacing: 2px;
+            font-weight: 100;
+        }
+
+    .btn-search {
+        width: 50px;
+        height: 50px;
+        border-style: none;
+        font-size: 20px;
+        font-weight: bold;
+        outline: none;
+        cursor: pointer;
+        border-radius: 50%;
+        position: absolute;
+        right: 0px;
+        color: #ffffff;
+        background-color: transparent;
+        pointer-events: painted;
+    }
+
+        .btn-search:focus ~ .input-search {
+            width: 300px;
+            border-radius: 0px;
+            background-color: #22a6b3;
+            border-bottom: 1px solid rgba(255,255,255,.5);
+            transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+        }
+
+    .input-search:focus {
+        width: 300px;
+        border-radius: 3px;
+        border: 10px;
+        background-color: #22a6b3;
+        border-bottom: 1px solid rgba(255,255,255,.5);
+        transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+    }
+
 </style>
 
 

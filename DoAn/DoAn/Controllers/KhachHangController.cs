@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -21,7 +23,15 @@ namespace DoAn.Controllers
             return false;
         }
 
-
+        public static string HashPassword(string password)
+        {
+            using (var sha256 = new SHA256Managed())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+            }
+        }
+        
         [HttpGet]
         public ActionResult FlatModernSignup()
         {
@@ -58,7 +68,7 @@ namespace DoAn.Controllers
                 else
                 {
                     kh.fullname = fullname;
-                    kh.password = userPass;
+                    kh.password = HashPassword(userPass);
                     kh.email = email;
                     kh.phone_number = phone_number;
                     kh.role_id = 2;
@@ -86,6 +96,16 @@ namespace DoAn.Controllers
             return View();
         }
 
+
+    public static bool VerifyPassword(string password, string hashedPassword)
+    {
+        using (var sha256 = new SHA256Managed())
+        {
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            var hashedString = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+            return hashedString.Equals(hashedPassword);
+        }
+    }
         /*Login*/
         [HttpPost]
         [AllowAnonymous]
@@ -94,8 +114,9 @@ namespace DoAn.Controllers
         {
             var email = collection["email"];
             var password = collection["password"];
-            var kh = data.KhachHangs.SingleOrDefault(n => n.email == email && n.password == password);
-            if (kh != null)
+            var kh = data.KhachHangs.SingleOrDefault(n => n.email == email);
+
+            if (kh != null && VerifyPassword(password, kh.password))
             {
                 ViewBag.ThongBao = "Đã đăng nhập!";
                 Session["TaiKhoan"] = kh;
@@ -110,10 +131,15 @@ namespace DoAn.Controllers
             }
         }
 
-        public ActionResult Logout()
+            public ActionResult Logout()
         {
             Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ProfileKH()
+        {
+            return View();
         }
 
         // GET: KhachHang
