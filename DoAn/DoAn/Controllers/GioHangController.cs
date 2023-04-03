@@ -200,7 +200,7 @@ namespace DoAn.Controllers
             content = content.Replace("{{OrderDate}}",dh.order_date.ToString());
             content = content.Replace("{{Total}}",TongTien().ToString("#,##0.00")+"VND");
             var toEmail = kh.email;
-            new MailHelper().SendMail(kh.email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+            //new MailHelper().SendMail(kh.email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
 
             new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
 
@@ -211,6 +211,11 @@ namespace DoAn.Controllers
 
         public ActionResult PaymentVNPay()
         {
+
+            
+
+            
+
             double a = TongTien();
             double total = a * 100;
 
@@ -237,6 +242,7 @@ namespace DoAn.Controllers
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
+            
             return Redirect(paymentUrl);
         }
 
@@ -270,6 +276,51 @@ namespace DoAn.Controllers
                     {
                         //Thanh toán thành công
                         ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
+                        DonHang dh = new DonHang();
+                        KhachHang kh = (KhachHang)Session["TaiKhoan"];
+                        SanPham s = new SanPham();
+
+                        List<GioHang> gh = getGioHang();
+
+                        dh.KH_id = kh.id;
+                        dh.order_date = DateTime.Now;
+                        dh.status = 0;
+                        dh.email = kh.email;
+                        dh.fullname = kh.fullname;
+                        dh.phone_number = kh.phone_number;
+                        dh.address = kh.address;
+                        dh.total_money = (int)TongTien();
+                        //dh.thanhtoan = false;
+
+                        data.DonHangs.InsertOnSubmit(dh);
+                        data.SubmitChanges();
+                        foreach (var item in gh)
+                        {
+                            ChiTietDonHang ctdh = new ChiTietDonHang();
+                            ctdh.order_id = dh.id;
+                            ctdh.product_id = item.id;
+                            ctdh.num = item.quantity;
+                            ctdh.price = (int)item.thanhtien;
+                            s = data.SanPhams.Single(n => n.id == item.id);
+                            s.quantity -= ctdh.num;
+                            data.SubmitChanges();
+
+                            data.ChiTietDonHangs.InsertOnSubmit(ctdh);
+                        }
+                        string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/neworder.html"));
+                        content = content.Replace("{{CustomerName}}", kh.fullname);
+                        content = content.Replace("{{Phone}}", kh.phone_number);
+                        content = content.Replace("{{Email}}", kh.email);
+                        content = content.Replace("{{Address}}", kh.address);
+                        content = content.Replace("{{OrderID}}", dh.id.ToString());
+                        content = content.Replace("{{OrderDate}}", dh.order_date.ToString());
+                        content = content.Replace("{{Total}}", TongTien().ToString("#,##0.00") + "VND");
+                        var toEmail = kh.email;
+
+                        new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+
+                        data.SubmitChanges();
+                        Session["GioHang"] = null;
                     }
                     else
                     {

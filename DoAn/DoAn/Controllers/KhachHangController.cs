@@ -136,21 +136,30 @@ namespace DoAn.Controllers
             var password = collection["password"];
             var kh = data.KhachHangs.SingleOrDefault(n => n.email == email);
 
+           
+
             if (kh != null && VerifyPassword(password, kh.password))
             {
-                ViewBag.ThongBao = "Đã đăng nhập!";
-                Session["TaiKhoan"] = kh;
-                Session["IDKH"] = kh.id;
-                Session["IDuser"] = kh.role_id;
-                Session["Name"] = kh.fullname;
-                Session["Address"] = kh.address;
-                return RedirectToAction("Index", "SanPham");
+                if(VerifyPassword(password, kh.password))
+                {
+                    ViewBag.ThongBao = "Đã đăng nhập!";
+                    Session["TaiKhoan"] = kh;
+                    Session["IDKH"] = kh.id;
+                    Session["IDuser"] = kh.role_id;
+                    Session["Name"] = kh.fullname;
+                    Session["Address"] = kh.address;
+                    return RedirectToAction("Index", "SanPham");
+                }
+                else
+                {
+                    ViewData["CheckMK"] = "Sai Thông Tin tài khoản! ";
+                    return View();
+                }
+
             }
-            else
-            {
-                ViewData["CheckMK"] = "Sai Thông Tin tài khoản! ";
-                return View();
-            }
+            
+            else { return View(); }
+
         }
 
             public ActionResult Logout()
@@ -249,24 +258,59 @@ namespace DoAn.Controllers
                 return View(kh);
             }
         }
+        public ActionResult forgotPass()
+        {
+            return View();
+        }
 
-        public ActionResult resetPass(string email)
+        [HttpPost]
+        public ActionResult forgotPass(string email)
         {
             Random random = new Random();
             
             int otp = random.Next(100000, 999999); 
             ViewBag.OTP = otp;
-            string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/neworder.html"));
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/resetPass.html"));
             content = content.Replace("{{otp}}", otp.ToString());
 
             var toEmail = email;
+            Session["emailReset"] = toEmail;
 
             new MailHelper().SendMail(email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
             new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
 
             return View();
         }
+        public ActionResult resetPass()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult resetPass(string otp, FormCollection collection)
+        {
+            var password = collection["password"];
+            var confirmPassword = collection["confirmPassword"];
+            var kh = data.KhachHangs.First(m => m.email == Session["emailReset"].ToString());
+            if (otp == ViewBag.OTP)
+            {
+                
+                if (!Equals(password, confirmPassword))
+                {
+                    ViewData["passwordGiongNhau"] = "Mật khẩu và Mật khẩu xác nhận phải giống nhau";
+                    return View(kh);
+                }
+                else
+                {
+                    kh.password = HashPassword(password);
+                    data.SubmitChanges();
+                    return RedirectToAction("FlatLogin", "KhachHang");
 
+                }
+
+                
+            }
+            return View();
+        }
         // GET: KhachHang
         public ActionResult Index()
         {

@@ -432,7 +432,9 @@
     <Content Include="Views\KhachHang\Info.cshtml" />
     <Content Include="Views\KhachHang\Edit.cshtml" />
     <Content Include="Views\KhachHang\changePassword.cshtml" />
+    <Content Include="Views\KhachHang\forgotPass.cshtml" />
     <Content Include="Views\KhachHang\resetPass.cshtml" />
+    <Content Include="Views\GioHang\PaymentConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

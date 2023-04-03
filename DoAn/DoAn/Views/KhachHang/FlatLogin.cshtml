@@ -81,14 +81,14 @@
             }
             <a href="@Url.Action("resetPass")"></a>
 
-            @*@using (Html.BeginForm("FacebookLogin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("FacebookLogin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     @Html.ActionLink("Login with Facebook", "FacebookLogin", null, new { @class = "btn btn-primary" })
                 </div>
             </div>
-        }*@
+        }
         </div>
     </div>
 </body>
