@@ -20,9 +20,9 @@ namespace DoAn.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="RiceStore")]
+    using System.ComponentModel.DataAnnotations;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="RiceStore")]
 	public partial class MyDataDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -1790,7 +1790,9 @@ namespace DoAn.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(50)")]
-		public string email
+        [Required]
+        [RegularExpression("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", ErrorMessage = "Email sai định dạng")]
+        public string email
 		{
 			get
 			{
@@ -1810,7 +1812,9 @@ namespace DoAn.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone_number", DbType="VarChar(20)")]
-		public string phone_number
+        [Required]
+        [RegularExpression("^0\\d{9}$", ErrorMessage = "Số điện thoại không hợp lệ!")]
+        public string phone_number
 		{
 			get
 			{
@@ -1850,7 +1854,10 @@ namespace DoAn.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(200)")]
-		public string password
+        [Required]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s])(?=.*[\\d])[a-zA-Z\\d\\W\\S]{8,}$",
+        ErrorMessage = "Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm chữ cái viết hoa, chữ cái thường, số và ký tự đặc biệt.")]
+        public string password
 		{
 			get
 			{

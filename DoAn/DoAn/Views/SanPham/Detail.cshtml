@@ -14,9 +14,9 @@
         <link href="https://fonts.googleapis.com/css?family=Bentham|Playfair+Display|Raleway:400,500|Suranna|Trocchi" rel="stylesheet">
     </div>
 
-    
+
     <div class="body">
-        
+
         <div class="wrapper">
             @using (Html.BeginForm("Index", "SanPham"))
             {
@@ -25,10 +25,10 @@
             <div class="product-img">
                 <img src="@Model.thumbnail" height="420" width="327">
                 <div class="product-price-btn">
-                    <p>Giá: <span>@String.Format("{0:0,0}",@Model.price)</span>VNĐ</p>
+                    <p>Giá: <span>@String.Format("{0:0,0}", @Model.price)</span>VNĐ</p>
                     @using (Html.BeginForm("addCart", "GioHang", new { @id = @Model.id, @strURL = Request.Url.ToString() }))
                     {
-                        <button type="submit" class="btn-price-btn"><span>Order</span></button>
+                        <button type="submit" onclick="showAlert()" class="btn-price-btn"><span>Order</span></button>
                     }
                 </div>
             </div>
@@ -43,6 +43,11 @@
         </div>
 
     </div>
+<script>
+    function showAlert() {
+    alert("Đã thêm vào giỏ");
+    }
+</script>
 
     <style>
         body {
@@ -61,7 +66,7 @@
             color: white;
             border-radius: 2px;
         }
-        
+
 
         .wrapper {
             height: 700px;

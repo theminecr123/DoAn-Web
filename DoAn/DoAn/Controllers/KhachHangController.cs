@@ -1,5 +1,6 @@
 ﻿using DoAn.common;
 using DoAn.Models;
+using Facebook;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -25,6 +27,15 @@ namespace DoAn.Controllers
 
             return false;
         }
+        public bool CheckPhone(string phone)
+        {
+            var check = data.KhachHangs.Any(n => n.phone_number == phone);
+            if (check == true)
+                return true;
+
+            return false;
+        }
+        
 
         public static string HashPassword(string password)
         {
@@ -49,14 +60,20 @@ namespace DoAn.Controllers
             var passConfirm = collection["passConfirm"];
             var email = collection["email"];
             var phone_number = collection["phone_number"];
-
+            
             if (CheckUser(email) == true)
             {
                 ViewData["TrungEmail"] = "Email đã tồn tại!";
                 return View("FlatLogin");
                 
             }
+            if (CheckPhone(phone_number) == true)
+            {
+                ViewData["TrungPhone"] = "Số điện thoại đã tồn tại!";
+                return View("FlatLogin");
 
+            }
+           
             else if (String.IsNullOrEmpty(passConfirm))
             {
                 ViewData["NhappasswordXacNhan"] = "Nhập Mật khẩu xác nhận!";
@@ -239,13 +256,13 @@ namespace DoAn.Controllers
             
             int otp = random.Next(100000, 999999); 
             ViewBag.OTP = otp;
-            //string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/neworder.html"));
-            //content = content.Replace("{{otp}}", otp.ToString());
-          
-            //var toEmail = email;
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/neworder.html"));
+            content = content.Replace("{{otp}}", otp.ToString());
 
-            //new MailHelper().SendMail(email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
-            //new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+            var toEmail = email;
+
+            new MailHelper().SendMail(email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+            new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
 
             return View();
         }
@@ -256,6 +273,80 @@ namespace DoAn.Controllers
             return RedirectToAction("FlatLogin", "KhachHang");
         }
 
+        private const string FacebookAppId = "610082339643432";
+        private const string FacebookAppSecret = "ff956408f61a534b362b502851bdaf0b";
+
+        [AllowAnonymous]
+        public ActionResult FacebookLogin()
+        {
+            var fb = new FacebookClient();
+            var RedirectUri = "https://localhost:44333/KhachHang/FacebookCallback";
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = FacebookAppId,
+                client_secret = FacebookAppSecret,
+                redirect_uri = RedirectUri,
+                response_type = "code",
+                scope = "email"
+            });
+
+            return Redirect(loginUrl.AbsoluteUri);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            var RedirectUri = "https://localhost:44333/KhachHang/FacebookCallback";
+            dynamic result = await fb.PostTaskAsync("oauth/access_token", new
+            {
+                client_id = FacebookAppId,
+                client_secret = FacebookAppSecret,
+                redirect_uri = RedirectUri,
+                code = code
+            });
+
+            var accessToken = result.access_token;
+
+            fb.AccessToken = accessToken;
+            dynamic me = await fb.GetTaskAsync("me?fields=name,email");
+
+
+            var name = (string)me.name;
+            var email = (string)me.email;
+
+            // Check if user already exists in your database
+            var user = data.KhachHangs.SingleOrDefault(n => n.email == email);
+            if (user != null)
+            {
+                // Log user in
+                Session["IDKH"] = user.id;
+                Session["TaiKhoan"] = user;
+                Session["IDuser"] = user.role_id;
+                Session["Name"] = user.fullname;
+                return RedirectToAction("Index", "SanPham");
+            }
+            else
+            {
+                // Register new user
+                var fullname = (string)me.name;
+
+                var kh = new KhachHang
+                {
+                    fullname = fullname,
+                    email = email,
+                    role_id = 2 // Default role for new users
+                };
+
+                data.KhachHangs.InsertOnSubmit(kh);
+                data.SubmitChanges();
+
+                Session["TaiKhoan"] = kh;
+                Session["IDuser"] = kh.role_id;
+                Session["Name"] = kh.fullname;
+                return RedirectToAction("Index", "SanPham");
+            }
+        }
 
     }
 }

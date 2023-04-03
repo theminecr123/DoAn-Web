@@ -61,7 +61,7 @@
 
                             @using (Html.BeginForm("addCart", "GioHang", new { @id = item.id, @strURL = Request.Url.ToString() }))
                             {
-                                <button type="submit" class="btn-order"><span>Order</span></button>
+                                <button type="submit" onclick="showAlert()" class="btn-order"><span>Order</span></button>
                             }
 
 
@@ -83,6 +83,13 @@
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), PagedList.Mvc.PagedListRenderOptions.Minimal)
     </div>
 </div>
+
+<script>
+function showAlert() {
+  alert("Đã thêm vào giỏ");
+}
+</script>
+
 
 <style>
     .column {

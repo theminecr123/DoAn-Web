@@ -543,3 +543,12 @@ C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\System.Numerics.Vectors.xml
 C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\System.ValueTuple.xml
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Facebook.dll
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Microsoft.Owin.dll
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Microsoft.Owin.Security.dll
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Owin.dll
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Facebook.xml
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Microsoft.Owin.xml
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Microsoft.Owin.Security.xml
+C:\Users\DongTrieu\Desktop\Sua1\DoAn\DoAn\bin\Microsoft.Owin.Security.Facebook.xml
