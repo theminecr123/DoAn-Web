@@ -6,6 +6,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+
+@using X.PagedList.Mvc.Common;
 @using PagedList.Mvc;
 
 <div class="row">
@@ -15,9 +17,9 @@
             <input type="text" name="nameSearch" class="input-search" placeholder="Tên gạo...">
         </form>
     </div>
-    <div class="column" >
+    <div class="column">
         Giá
-        <form asp-action="Index" method="get" class="search-box" >
+        <form asp-action="Index" method="get" class="search-box">
             <input type="number" name="from"> - <input type="number" name="to">            <button><i class="fa fa-search"></i></button>
 
         </form>
@@ -30,6 +32,7 @@
 
 
 <body class="main-layout inner_page">
+
 
 
 
@@ -84,11 +87,8 @@
     </div>
 </div>
 
-<script>
-function showAlert() {
-  alert("Đã thêm vào giỏ");
-}
-</script>
+
+
 
 
 <style>
@@ -262,7 +262,11 @@ function showAlert() {
         border-bottom: 1px solid rgba(255,255,255,.5);
         transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
     }
-
 </style>
 
 
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>

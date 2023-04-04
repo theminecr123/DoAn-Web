@@ -17,13 +17,14 @@ namespace DoAn.Controllers
     {
         MyDataDataContext data = new MyDataDataContext();
         // GET: SanPham
+       
         public ActionResult Index(int? page, string nameSearch, double? from, double? to)
         {
-            
-            var all_sp = (from s in data.SanPhams select s).OrderBy(m => m.id); 
-            if(!string.IsNullOrEmpty(nameSearch) )
+            if (page == null) page = 1;
+            var all_sp = (from s in data.SanPhams select s).OrderBy(m => m.id);
+            if (!string.IsNullOrEmpty(nameSearch))
             {
-                if(to != null && from != null)
+                if (to != null && from != null)
                 {
                     all_sp = all_sp.Where(x => x.title.Contains(nameSearch) && x.price >= from && x.price <= to).OrderBy(m => m.id);
 
@@ -40,16 +41,15 @@ namespace DoAn.Controllers
             {
                 if (to != null && from != null)
                 {
-                    all_sp = all_sp.Where(x=> x.price >= from && x.price <= to).OrderBy(m => m.id);
+                    all_sp = all_sp.Where(x => x.price >= from && x.price <= to).OrderBy(m => m.id);
 
                 }
             }
-            if (page == null) page = 1;
             int pageSize = 6;
             int pageNum = page ?? 1;
-            return View(all_sp.ToPagedList(1, pageSize));
+            return View(all_sp.ToPagedList(pageNum, pageSize));
         }
-       
+
         public ActionResult Detail(int id)
         {
             var sp = data.SanPhams.Where(m => m.id == id).First();
