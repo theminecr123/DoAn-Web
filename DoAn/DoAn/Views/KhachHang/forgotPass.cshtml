@@ -23,10 +23,12 @@
 
             @Html.AntiForgeryToken()
             <label for="chk" aria-hidden="true">Forget Password</label>
-            
+
             @using (Html.BeginForm("forgotPass", "KhachHang", FormMethod.Post))
             {
                 <input type="text" name="email" placeholder="Email..." />
+                <div style="font-size:15px; margin-left:50px;color:red">@ViewData["SaiEmail"]</div>
+
                 <button type="submit">Submit</button>
             }
 

@@ -138,7 +138,7 @@ namespace DoAn.Controllers
 
            
 
-            if (kh != null && VerifyPassword(password, kh.password))
+            if (kh != null)
             {
                 if(VerifyPassword(password, kh.password))
                 {
@@ -266,23 +266,36 @@ namespace DoAn.Controllers
         [HttpPost]
         public ActionResult forgotPass(string email)
         {
-            Random random = new Random();
-            
-            int otp = random.Next(100000, 999999); 
-            ViewBag.OTP = otp;
-            string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/resetPass.html"));
-            content = content.Replace("{{otp}}", otp.ToString());
+            bool kh = data.KhachHangs.Any(x=>x.email == email);
+            if (kh)
+            {
+                Random random = new Random();
 
-            var toEmail = email;
-            Session["emailReset"] = toEmail;
+                int otp = random.Next(100000, 999999);
+                Session["OTP"] = otp;
+                string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/common/resetPass.html"));
+                content = content.Replace("{{otp}}", otp.ToString());
 
-            new MailHelper().SendMail(email, "Ricie - Web bán gạo hàng đầu Hutech.", content);
-            new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+                var toEmail = email;
+                Session["emailReset"] = toEmail;
 
-            return View();
+                new MailHelper().SendMail(toEmail, "Ricie - Web bán gạo hàng đầu Hutech.", content);
+
+                return RedirectToAction("resetPass");
+            }
+            else
+            {
+                ViewData["SaiEmail"] = "Email không tồn tại trong hệ thống!";
+                return View();
+            }
+          
         }
         public ActionResult resetPass()
         {
+            if (Session["emailReset"] == null)
+            {
+                return RedirectToAction("FlatLogin");
+            }
             return View();
         }
         [HttpPost]
@@ -291,7 +304,7 @@ namespace DoAn.Controllers
             var password = collection["password"];
             var confirmPassword = collection["confirmPassword"];
             var kh = data.KhachHangs.First(m => m.email == Session["emailReset"].ToString());
-            if (otp == ViewBag.OTP)
+            if (otp == Session["OTP"].ToString())
             {
                 
                 if (!Equals(password, confirmPassword))

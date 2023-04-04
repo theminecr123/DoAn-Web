@@ -64,22 +64,29 @@
             {
                 @Html.AntiForgeryToken()
 
-                <form>
+            <form>
 
-                    <label for="chk" aria-hidden="true">Login</label>
-                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "email", required = "" } })
-                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                <label for="chk" aria-hidden="true">Login</label>
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "email", required = "" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
 
-                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "password", required = "" } })
-                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                    <a href="@Url.Action("resetPass")"></a>
-                    <div style="font-size:15px; margin-left:50px;color:red">@ViewData["CheckMK"]</div>
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "password", required = "" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                <a href="@Url.Action("resetPass")"></a>
+                <div style="font-size:15px; margin-left:50px;color:red">@ViewData["CheckMK"]</div>
 
 
-                    <button>Login</button>
-                </form>
+                <button>Login</button>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                       @Html.ActionLink("Forgot Password","forgotPass","KhachHang")
+
+                    </div>
+                </div>
+            </form>
             }
-            <a href="@Url.Action("resetPass")"></a>
+
+            
 
             @using (Html.BeginForm("FacebookLogin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {

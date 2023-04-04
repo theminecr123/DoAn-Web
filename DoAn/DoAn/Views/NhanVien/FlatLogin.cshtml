@@ -28,17 +28,18 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    <form>
-                        <label for="chk" aria-hidden="true">Login</label>
-                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "email", required = "" } })
-                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                <form>
+                    <label for="chk" aria-hidden="true">Login</label>
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "email", required = "" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
 
-                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "password", required = "" } })
-                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                        
-                        <button>Login</button>
-                        
-                    </form>
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "password", required = "" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    <div style="font-size:15px; margin-left:50px;color:red">@ViewData["CheckMK"]</div>
+
+                    <button>Login</button>
+
+                </form>
                 }
             </div>
         </div>

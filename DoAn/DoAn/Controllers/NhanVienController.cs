@@ -3,6 +3,8 @@ using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -14,10 +16,26 @@ namespace DoAn.Controllers
         MyDataDataContext data = new MyDataDataContext();
         // GET: Admin
 
-       
-        
 
-      
+        public static string HashPassword(string password)
+        {
+            using (var sha256 = new SHA256Managed())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+            }
+        }
+        public static bool VerifyPassword(string password, string hashedPassword)
+        {
+            using (var sha256 = new SHA256Managed())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                var hashedString = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                return hashedString.Equals(hashedPassword);
+            }
+        }
+
+
         [AllowAnonymous]
         public ActionResult FlatLogin()
         {
@@ -32,28 +50,34 @@ namespace DoAn.Controllers
         {
             var email = collection["email"];
             var password = collection["password"];
-            var nv = data.NhanViens.SingleOrDefault(n => n.email == email && n.password == password);
+            var nv = data.NhanViens.SingleOrDefault(n => n.email == email );
             if (nv != null)
             {
-                ViewBag.ThongBao = "Đã đăng nhập!";
-                Session["TaiKhoan"] = nv;
-                Session["IDuser"] = nv.role_id;
-                Session["Name"] = nv.fullname;
-                if(nv.role_id == 1)
+                if(VerifyPassword(password, nv.password))
                 {
-                    Session["RoleName"] = "Admin";
+                    ViewBag.ThongBao = "Đã đăng nhập!";
+                    Session["TaiKhoan"] = nv;
+                    Session["IDuser"] = nv.role_id;
+                    Session["Name"] = nv.fullname;
+                    if (nv.role_id == 1)
+                    {
+                        Session["RoleName"] = "Admin";
+                    }
+
+                    return RedirectToAction("Index", "NhanVien");
                 }
-                
-                return RedirectToAction("Index", "NhanVien");
+                else
+                {
+                    ViewData["CheckMK"] = "Sai Thông Tin tài khoản! ";
+                    return View();
+                }
             }
             else
             {
-                ViewBag.ThongBao = "Sai thông tin!";
-
                 return View();
             }
         }
-
+       
         public ActionResult Logout()
         {
             Session.Clear();
@@ -110,7 +134,7 @@ namespace DoAn.Controllers
                 kh.email = email.ToString();
                 kh.phone_number = phone_number.ToString();
                 kh.address = address;
-                kh.password = password;
+                kh.password = HashPassword(password);
                 data.KhachHangs.InsertOnSubmit(kh);
                 data.SubmitChanges();
                 return RedirectToAction("KhachHang");
@@ -125,21 +149,17 @@ namespace DoAn.Controllers
         [HttpPost]
         public ActionResult EditKH(int id, FormCollection collection, string actionName)
         {
-            var E_sach = data.KhachHangs.First(m => m.id == id);
+            var kh = data.KhachHangs.First(m => m.id == id);
             var fullname = collection["fullname"];
             var email = collection["email"];
             var address = collection["address"];
-            var password = collection["password"];
-            E_sach.id = id;
+            kh.id = id;
 
       
            
-                E_sach.fullname = fullname;
-                E_sach.email = email;
-                E_sach.address = address;
-                E_sach.password = password;
-                UpdateModel(E_sach);
-
+                kh.fullname = fullname;
+                kh.email = email;
+                kh.address = address;
 
                 data.SubmitChanges();
                 return RedirectToAction("KhachHang");
@@ -225,7 +245,7 @@ namespace DoAn.Controllers
                 s.email = email.ToString();
                 s.phone_number = phone_number;
                 s.address = address;
-                s.password = password;
+                s.password = HashPassword(password);
 
                 data.NhanViens.InsertOnSubmit(s);
                 data.SubmitChanges();

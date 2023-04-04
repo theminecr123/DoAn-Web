@@ -27,8 +27,8 @@
             @using (Html.BeginForm("resetPass", "KhachHang", FormMethod.Post))
             {
                 <input type="text" name="otp" placeholder="OTP..." />
-                <input type="text" name="password" placeholder="password..." />
-                <input type="text" confirmPassword="email" placeholder="confirmPassword..." />
+                <input type="password" name="password" placeholder="password..." />
+                <input type="password" name ="confirmPassword" placeholder="confirmPassword..." />
                 <button type="submit">Submit</button>
             }
 
