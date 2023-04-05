@@ -435,6 +435,7 @@
     <Content Include="Views\KhachHang\forgotPass.cshtml" />
     <Content Include="Views\KhachHang\resetPass.cshtml" />
     <Content Include="Views\GioHang\PaymentConfirm.cshtml" />
+    <Content Include="Views\NhanVien\DeleteDH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

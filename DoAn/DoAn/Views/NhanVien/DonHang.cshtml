@@ -72,8 +72,7 @@
             @Html.DisplayFor(modelItem => item.total_money)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Delete", "DeleteDH", new { id=item.id })
         </td>
     </tr>
 }

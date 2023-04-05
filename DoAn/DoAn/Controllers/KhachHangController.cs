@@ -330,8 +330,8 @@ namespace DoAn.Controllers
             return RedirectToAction("FlatLogin", "KhachHang");
         }
 
-        private const string FacebookAppId = "610082339643432";
-        private const string FacebookAppSecret = "ff956408f61a534b362b502851bdaf0b";
+        private const string FacebookAppId = "779625872775978";
+        private const string FacebookAppSecret = "78be4fb391d8aa63e712c2e56291b807";
 
         [AllowAnonymous]
         public ActionResult FacebookLogin()

@@ -293,7 +293,7 @@ namespace DoAn.Controllers
                 NhanVien.email = email;
                 NhanVien.phone_number = phone_number;
                 NhanVien.address = address;
-                NhanVien.password = password;
+                NhanVien.password = HashPassword(password);
                 NhanVien.role_id = role_id;
                 UpdateModel(NhanVien);
 

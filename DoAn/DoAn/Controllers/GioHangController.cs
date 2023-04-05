@@ -183,7 +183,7 @@ namespace DoAn.Controllers
                 ctdh.order_id = dh.id;
                 ctdh.product_id = item.id;
                 ctdh.num = item.quantity;
-                ctdh.price = (int)item.thanhtien;
+                ctdh.total_money = (int)item.thanhtien;
                 s = data.SanPhams.Single(n => n.id == item.id);
                 s.quantity -= ctdh.num;
                 data.SubmitChanges();
@@ -294,13 +294,14 @@ namespace DoAn.Controllers
 
                         data.DonHangs.InsertOnSubmit(dh);
                         data.SubmitChanges();
+
                         foreach (var item in gh)
                         {
                             ChiTietDonHang ctdh = new ChiTietDonHang();
                             ctdh.order_id = dh.id;
                             ctdh.product_id = item.id;
                             ctdh.num = item.quantity;
-                            ctdh.price = (int)item.thanhtien;
+                            ctdh.total_money = (int)item.thanhtien;
                             s = data.SanPhams.Single(n => n.id == item.id);
                             s.quantity -= ctdh.num;
                             data.SubmitChanges();
